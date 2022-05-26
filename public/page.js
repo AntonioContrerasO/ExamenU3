@@ -12,24 +12,42 @@ socket.on('chat message', function(msg) {
 
   $("h1").text(msg.split());
 
-  if(Number(msg) == 4){
+  if(Number(msg) == 2){
     posX +=50;
     $("#gg").css("left",+posX+"px");
   }
-  if(Number(msg) == 1){
+  if(Number(msg) == 4){
     posX -=50;
     $("#gg").css("left",+posX+"px");
   }
-  if(Number(msg) == 2){
+  if(Number(msg) == 3){
     posY -=50;
     $("#gg").css("top",+posY+"px");
   }
-  if(Number(msg) == 3){
+  if(Number(msg) == 1){
     posY +=50;
     $("#gg").css("top",+posY+"px");
   }
-  if(Number(msg) == 5){
+  if(Number(msg) == 12){
     posX +=50;
+    posY +=50;
+    $("#gg").css("left",+posX+"px");
+    $("#gg").css("top",+posY+"px");
+  }
+  if(Number(msg) == 23){
+    posX +=50;
+    posY -=50;
+    $("#gg").css("left",+posX+"px");
+    $("#gg").css("top",+posY+"px");
+  }
+  if(Number(msg) == 34){
+    posX -=50;
+    posY -=50;
+    $("#gg").css("left",+posX+"px");
+    $("#gg").css("top",+posY+"px");
+  }
+  if(Number(msg) == 14){
+    posX -=50;
     posY +=50;
     $("#gg").css("left",+posX+"px");
     $("#gg").css("top",+posY+"px");
