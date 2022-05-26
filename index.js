@@ -17,12 +17,9 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log(socket.id);
-  if (conexiones.includes(socket.id)==false) {
-    io.emit("position",[X,Y])
-  }
+  io.emit("position",[X,Y]);
 
   socket.on('chat message', (msg) => {
-    console.log(msg);
     io.emit('chat message', msg);
   });
 
