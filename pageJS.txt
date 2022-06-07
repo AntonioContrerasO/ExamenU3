@@ -1,0 +1,170 @@
+$("#gg").css("background-color","") //Invocación del objeto
+var socket = io();                  //Variable socket para comunicación
+var choco=1;                        //Variable para acción de colisión
+
+socket.on("position", function(msg){ //Posiciones para nuevos clientes
+  posX  = msg[0];                    //Arreglos de posiciones
+  posY =  msg[1];
+  $("#gg").css("left",+posX+"px");   //Actualización de la posicion del
+  $("#gg").css("top",+posY+"px");    //objeto en pantalla
+})
+
+socket.on('chat message', function(msg) {  //Movimiento del cliente   
+  $("h1").text(posX+" "+posY);           //Coordenas en pantalla
+  if(Number(msg) == 2){                 //Condición y conversión del mensaje
+    if(posX>=799){                      //Límite en +X 
+      posX=posX;                        //Estancamiento de pocisión
+      if(choco==1){                     //Reproducción de audio para colisión
+        new Audio("bong.mp3").play();
+        choco=0;
+      }
+    }else{                           //Incremento de posición "movimeinto"
+      posX +=1;
+      choco=1;
+    }
+  }
+  if(Number(msg) == 4){          //Movimiento en -X
+    if(posX<=-799){
+      posX=posX;
+      if(choco==1){
+        new Audio("bong.mp3").play();
+        choco=0;
+      }
+    }else{
+      posX -=1;
+      choco=1;
+    }
+  }
+
+  if(Number(msg) == 1){        //Movimiento en -Y
+    if(posY<=-399){
+      posY=posY;
+      if(choco==1){
+        new Audio("bong.mp3").play();
+        choco=0;
+      }
+    }else{
+      posY -=1;
+      choco=1;
+    }
+  }
+  if(Number(msg) == 3){        //Movimiento en +Y
+    if(posY>=299){
+      posY=posY;
+       if(choco==1){
+        new Audio("bong.mp3").play();
+        choco=0;
+      }
+    }else{
+      posY +=1;
+      choco=1;
+    }
+  }
+  if(Number(msg) == 23){        //Movimiento Cuadrante I
+    if(posY>=299 & posX>=799){
+      posY = posY;
+      posX = posX;
+      if(choco==1){
+        new Audio("bong.mp3").play();
+        choco=0;
+      }
+    }else{
+       posX +=1;
+       posY +=1;
+       choco=1;
+    }
+  }
+  if(Number(msg) == 12){        //Movimiento Cuadrante II
+    if(posY<=-399 & posX>=799){
+       posY=posY;
+       posX=posX;
+       if(choco==1){
+       new Audio("bong.mp3").play();
+       choco=0;
+       }
+    }else{
+       posX +=1;
+       posY -=1;
+       choco=1;
+    }                
+  }
+  if(Number(msg) == 14){        //Movimiento Cuadrante III
+    if(posY<=-399 & posX<=-799){
+       posY=posY;
+       posX=posX;
+       if(choco==1){
+       new Audio("bong.mp3").play();
+       choco=0;
+      }
+    }else{
+       posX -=1;
+       posY -=1;
+       choco=1;
+    }              //listo 
+  }
+  if(Number(msg) == 34){        //Movimiento Cuadrante IV
+    if(posY>=299 & posX<=-799){
+       posY=posY;
+       posX=posX;
+       if(choco==1){
+       new Audio("bong.mp3").play();
+       choco=0;
+      }
+    }else{
+       posX -=1;
+       posY +=1;
+       choco=1;
+    }
+  }
+    $("#gg").css("left",+posX+"px");
+    $("#gg").css("top",+posY+"px");
+  socket.emit("position",[posX,posY]);
+});
+
+$(document).keypress(function(event) { //Movimiento con teclas
+  if(event.key == "w"){
+    if(posY<=-395){
+      posY=posY;
+      new Audio("bong.mp3").play();
+    }
+    else{    
+      posY -=5;
+      console.log("w");
+    }
+  }
+  if(event.key == "s"){
+    if(posY>=295){
+      posY=posY;
+      new Audio("bong.mp3").play();
+    }
+    else{   
+      posY +=5;
+      console.log("s");
+    }
+
+  }
+  if(event.key == "d"){
+    if(posX>=795){
+      posX=posX;
+      new Audio("bong.mp3").play();
+    }
+    else{
+      posX +=5;
+      console.log("d");
+    }
+
+  }
+  if(event.key == "a"){
+    if (posX<=-795){
+      posX=posX;
+      new Audio("bong.mp3").play();
+    }
+    else{    
+      posX -=5;
+      console.log("a");
+    }
+  }
+    $("#gg").css("left",+posX+"px");
+    $("#gg").css("top",+posY+"px");
+  
+});
